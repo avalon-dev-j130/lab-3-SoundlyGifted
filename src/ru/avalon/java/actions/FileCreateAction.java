@@ -1,25 +1,16 @@
+
 package ru.avalon.java.actions;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import static java.nio.file.StandardCopyOption.*;
 
-/**
- * Действие, которое копирует файлы в пределах дискового
- * пространства.
- */
-public class FileCopyAction implements Action {
+public class FileCreateAction implements Action {
     
-    private Path pathFrom;  // a path that file to be copied from.
-    private Path pathTo;    // a path to copy a file to.
+    private Path pathTo;    // a path to create a file in.
 
     /* Constructor */
-    public FileCopyAction() { }
-
-    public void setPathFrom(Path pathFrom) {
-        this.pathFrom = pathFrom;
-    }
+    public FileCreateAction() { }
 
     public void setPathTo(Path pathTo) {
         this.pathTo = pathTo;
@@ -35,7 +26,7 @@ public class FileCopyAction implements Action {
             * TODO №2 Реализуйте метод run класса FileCopyAction
             */
         try {    
-            Files.copy(pathFrom, pathTo, REPLACE_EXISTING);
+            Files.createFile(pathTo);
         } catch (IOException ex) {/*ex.printStackTrace();*/} 
     }
 
