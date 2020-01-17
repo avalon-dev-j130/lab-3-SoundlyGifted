@@ -23,7 +23,7 @@ public class Lab3 extends ConsoleUI<Commands> {
     
     // Stream that reads console commands.
     BufferedReader in = new BufferedReader(new InputStreamReader(System.in));    
-       
+   
     /**
      * Точка входа в приложение.
      * 
@@ -47,17 +47,13 @@ public class Lab3 extends ConsoleUI<Commands> {
      */
     @Override
     protected void onCommand(Commands command) throws IOException {
-        
-        FileCopyAction copyAction = new FileCopyAction();
-        FileMoveAction moveAction = new FileMoveAction();
-        FileCreateAction createAction = new FileCreateAction();
-        FileDeleteAction deleteAction = new FileDeleteAction();
-        
+           
         switch (command) {
             case copy:
                 /*
                  * TODO №6 Обработайте команду copy
                  */
+                FileCopyAction copyAction = new FileCopyAction();
                 System.out.print("Enter path to file that has to be copied: ");
                 copyAction.setPathFrom(Paths.get(in.readLine()));                
                 System.out.print("Enter path to copy the file to: ");
@@ -68,6 +64,7 @@ public class Lab3 extends ConsoleUI<Commands> {
                 /*
                  * TODO №7 Обработайте команду move
                  */
+                FileMoveAction moveAction = new FileMoveAction();
                 System.out.print("Enter path to file that has to be moved: ");
                 moveAction.setPathFrom(Paths.get(in.readLine()));                
                 System.out.print("Enter path to move the file to: ");
@@ -75,24 +72,21 @@ public class Lab3 extends ConsoleUI<Commands> {
                 moveAction.start();
                 break;
             case create:
+                FileCreateAction createAction = new FileCreateAction();
                 System.out.print("Enter path to create a file in "
                         + "(incl. filename with extension): ");
                 createAction.setPathTo(Paths.get(in.readLine()));
                 createAction.start();
                 break;
             case delete:
+                FileDeleteAction deleteAction = new FileDeleteAction();
                 System.out.print("Enter path to delete a file from "
                         + "(incl. filename with extension): ");
                 deleteAction.setPathFrom(Paths.get(in.readLine()));
                 deleteAction.start();
                 break;
             case exit:
-                try {
-                    copyAction.close();
-                    moveAction.close();
-                    createAction.close();
-                    deleteAction.close();
-                } catch (Exception ex) { }
+                    Action.threadPool.shutdownNow();
                 close();
                 break;
                 /*

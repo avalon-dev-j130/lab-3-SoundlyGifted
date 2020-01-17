@@ -4,6 +4,8 @@ package ru.avalon.java.actions;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileCreateAction implements Action {
     
@@ -28,6 +30,7 @@ public class FileCreateAction implements Action {
         try {    
             Files.createFile(pathTo);
         } catch (IOException ex) {/*ex.printStackTrace();*/} 
+        
     }
 
     /**

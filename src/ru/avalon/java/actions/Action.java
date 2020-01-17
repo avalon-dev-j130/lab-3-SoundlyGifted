@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
  */
 public interface Action extends Runnable, AutoCloseable {
     
-    ExecutorService threadPool = Executors.newCachedThreadPool();
+    public ExecutorService threadPool = Executors.newCachedThreadPool();
        
     /**
      * Запускает потоковый объект на исполнение в отдельном

@@ -30,7 +30,7 @@ public class FileCopyAction implements Action {
      */
     @Override
     public void run() {
-
+       
             /*
             * TODO №2 Реализуйте метод run класса FileCopyAction
             */
