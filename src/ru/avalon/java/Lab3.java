@@ -1,8 +1,13 @@
 package ru.avalon.java;
 
+import java.io.BufferedReader;
 import ru.avalon.java.console.ConsoleUI;
 
+import ru.avalon.java.actions.*;
+
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Paths;
 
 /**
  * Лабораторная работа №3
@@ -15,6 +20,10 @@ import java.io.IOException;
  * @author Daniel Alpatov <danial.alpatov@gmail.com>
  */
 public class Lab3 extends ConsoleUI<Commands> {
+    
+    // Stream that reads console commands.
+    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));    
+   
     /**
      * Точка входа в приложение.
      * 
@@ -38,18 +47,46 @@ public class Lab3 extends ConsoleUI<Commands> {
      */
     @Override
     protected void onCommand(Commands command) throws IOException {
+           
         switch (command) {
             case copy:
                 /*
                  * TODO №6 Обработайте команду copy
                  */
+                FileCopyAction copyAction = new FileCopyAction();
+                System.out.print("Enter path to file that has to be copied: ");
+                copyAction.setPathFrom(Paths.get(in.readLine()));                
+                System.out.print("Enter path to copy the file to: ");
+                copyAction.setPathTo(Paths.get(in.readLine()));
+                copyAction.start();
                 break;
             case move:
                 /*
                  * TODO №7 Обработайте команду move
                  */
+                FileMoveAction moveAction = new FileMoveAction();
+                System.out.print("Enter path to file that has to be moved: ");
+                moveAction.setPathFrom(Paths.get(in.readLine()));                
+                System.out.print("Enter path to move the file to: ");
+                moveAction.setPathTo(Paths.get(in.readLine()));
+                moveAction.start();
+                break;
+            case create:
+                FileCreateAction createAction = new FileCreateAction();
+                System.out.print("Enter path to create a file in "
+                        + "(incl. filename with extension): ");
+                createAction.setPathTo(Paths.get(in.readLine()));
+                createAction.start();
+                break;
+            case delete:
+                FileDeleteAction deleteAction = new FileDeleteAction();
+                System.out.print("Enter path to delete a file from "
+                        + "(incl. filename with extension): ");
+                deleteAction.setPathFrom(Paths.get(in.readLine()));
+                deleteAction.start();
                 break;
             case exit:
+                    Action.threadPool.shutdownNow();
                 close();
                 break;
                 /*

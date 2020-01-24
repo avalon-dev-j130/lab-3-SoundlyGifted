@@ -1,5 +1,8 @@
 package ru.avalon.java.actions;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Абстрактное представление о действии, как функциональном
  * элементе приложения.
@@ -9,6 +12,9 @@ package ru.avalon.java.actions;
  * основной поток исполнения.
  */
 public interface Action extends Runnable, AutoCloseable {
+    
+    public ExecutorService threadPool = Executors.newCachedThreadPool();
+       
     /**
      * Запускает потоковый объект на исполнение в отдельном
      * потоке исполнения.
@@ -17,7 +23,7 @@ public interface Action extends Runnable, AutoCloseable {
         /*
          * TODO №1 Реализуйте метод start интерфейса Action.
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        threadPool.execute(this);
     }
-    
+   
 }
